@@ -1,0 +1,67 @@
+{{define "default/index.html"}}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/css/base.css">
+</head>
+<body>
+    {{template "public/page_header.html" .}}
+
+
+    <h2>我是一个商品页面{{.title}}</h2>
+
+    <p>{{.article.Title}}</p>
+
+    {{$t := .title}}
+
+    <h4>{{$t}}</h4>
+
+    {{if lt .age 30 }}
+        <p>青年</p>
+    {{else if lt .age 50}}
+        <p>中年</p>
+    {{else}}
+        <p>老年</p>
+    {{end}}
+
+    <ul>
+        {{range $key, $value := .numbers}}
+        <li>{{$key}}--{{$value}}</li>
+        {{end}}
+    </ul>
+
+    <ul>
+        {{range $key, $value := .articles}}
+        <li>{{$key}}--{{$value.Title}}</li>
+        {{end}}
+    </ul>
+    <br>
+    <ul>
+        {{range $key, $value := .empty}}
+        <li>{{$key}}--{{$value}}</li>
+        {{else}}
+        <li>数组中没有数据</li>
+        {{end}}
+    </ul>
+
+    {{with .article}}
+        <p>{{.Title}}</p>
+    {{end}}
+
+    {{len .title}}
+
+    <br>
+    <!--    自定义模板函数-->
+    {{UnixToTime .ts}}
+    <br>
+    {{Println .title .title}}
+
+    <img src="/static/image/image.png">
+</body>
+</html>
+{{end}}
